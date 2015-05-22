@@ -1,62 +1,139 @@
 var calculator = {
-	memory : 0 ,
-	number : 0 ,
+	memory : 0,
+	number : 0,
+	num1 : 0,
+	result : 0,
+	oper : "",
+	flag : true,
+	eqOper : "",
 	numberPressed : function(num) {
-		console.log("number pressed: "+num) ;
-		this.number = this.number * 10 + num ;
-		calculatorUI.setDisplay(this.number) ;
+		console.log("number pressed: " + num);
+		if (this.oper != "") {
+			this.number = 0;
+			calculatorUI.setDisplay(this.number);
+			this.eqOper = this.oper;
+			this.oper = "";
+		}
+		 
+		this.number = (this.number == 0) ? this.number + num : this.number + ''
+				+ num;
+		calculatorUI.setDisplay(this.number);
+		 
 	},
-	operatorPressed : function(operator) {
-		console.log("operator pressed: "+operator) ;	
+	operatorPressed : function(operator) { 
+		if (this.oper == "" || this.oper == "equals") {
+		 
+			this.num1 = parseFloat(calculatorUI.getDisplay());
+			if (operator == "plus") {
+				if (this.oper != "equals") {
+					this.result = this.result + this.num1;
+					this.number = this.result;
+				}else{
+					this.result = this.num1;
+					this.number = this.result;
+				}
+				calculatorUI.setDisplay(this.number);
+			 
+			} else if ("multiply" == operator) {
+				if (this.result != 0 && this.oper != "equals") {
+					this.result = this.result * this.num1;
+					this.number = this.result;
+				} else {
+					this.result = this.num1;
+					this.number = this.result;
+				}
+				calculatorUI.setDisplay(this.number);
+			} else {
+				if (this.num1 == 0) {
+					alert("除数不能为0！");
+				}
+				if (this.result != 0 && this.oper != "equals") {
+					this.result = this.result / this.num1;
+					this.number = this.result;
+				}  
+				calculatorUI.setDisplay(this.number);
+			}
+			this.oper = operator;
+			this.flag = true;
+			console.log("operator pressed: " + operator);
+
+		}
 	},
 	equalPressed : function() {
-		console.log("equal pressed") ;
+		if (this.flag) {
+			console.log("equal pressed");
+			this.num1 = parseFloat(calculatorUI.getDisplay());
+			if (this.eqOper == "plus") {
+				this.result = this.result + this.num1;
+			} else if ("minus" == this.eqOper) {
+				this.result = this.result - this.num1;
+			} else if ("multiply" == this.eqOper) {
+				this.result = this.result * this.num1;
+			} else {
+				this.result = this.result / this.num1;
+			}
+			this.number = this.result;
+			this.flag = false;
+			this.oper = "equals";
+			calculatorUI.setDisplay(this.number);
+		}
 	},
-	dotPressed : function() {
-		console.log("dot pressed") ;
+	dotPressed : function() { 
+		str = this.number; 
+		for (i = 0; i <= str.length; i++) {    
+			if (str.substr(i, 1) == ".")
+				return false;  
+		}
+	 
+		calculatorUI.setDisplay(this.number);
 	},
-	clearPressed : function() {
-		console.log("clear pressed") ;
+	clearPressed : function() { 
+		console.log("clear pressed");
+		this.number = (this.number.toString().length == 1) ? 0 : this.number
+				.substr(0, this.number.toString().length - 1);
+		calculatorUI.setDisplay(this.number);
 	},
-	allClearPressed : function() {
-		console.log("all clear pressed") ;
+	allClearPressed : function() {  
+		console.log("all clear pressed");
+		this.number = 0;
+		calculatorUI.setDisplay(this.number);
 	},
 };
 var calculatorUI = {
-    operators : [ "plus" , "minus" , "multiply" , "divide" ] ,
+	operators : [ "plus", "minus", "multiply", "divide" ],
 	initialize : function() {
-		for(i=0;i<10;i++) {
-			hash = "#" + i ;
+		for (i = 0; i < 10; i++) {
+			hash = "#" + i;
 			$(hash).click(function() {
-				calculator.numberPressed(Number($(this).attr("id"))) ;
+				calculator.numberPressed(Number($(this).attr("id")));
 			});
 		}
-		for(i=0;i<this.operators.length;i++) {
-			hash = "#" + this.operators[i] ;
+		for (i = 0; i < this.operators.length; i++) {
+			hash = "#" + this.operators[i];
 			$(hash).click(function() {
-				calculator.operatorPressed($(this).attr("id")) ;
-			}) ;
+				calculator.operatorPressed($(this).attr("id"));
+			});
 		}
 		$("#equal").click(function() {
-			calculator.equalPressed() ;
+			calculator.equalPressed();
 		});
 		$("#dot").click(function() {
-			calculator.dotPressed() ;
+			calculator.dotPressed();
 		});
 		$("#C").click(function() {
-			calculator.clearPressed() ;
+			calculator.clearPressed();
 		});
 		$("#AC").click(function() {
-			calculator.allClearPressed() ;
+			calculator.allClearPressed();
 		});
 	},
 	setDisplay : function() {
-	    $("#display").text(calculator.number) ; 	
+		$("#display").text(calculator.number);
 	},
 	getDisplay : function() {
-		return $("#display").text() ;
+		return $("#display").text();
 	}
 };
 $(document).ready(function() {
-	calculatorUI.initialize() ;
+	calculatorUI.initialize();
 });
