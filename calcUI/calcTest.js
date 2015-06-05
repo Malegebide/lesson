@@ -45,4 +45,8 @@ QUnit.test("It should mutiply two numbers", function( assert ) {
 	$('#equal').click();
 	num = calculatorUI.getDisplay() ;
     assert.ok( num !=5 , " disPassed!" );
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 4c86aee0a219c892dedbefc0dca520271cc9824f

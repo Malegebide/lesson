@@ -136,4 +136,8 @@ var calculatorUI = {
 };
 $(document).ready(function() {
 	calculatorUI.initialize();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 4c86aee0a219c892dedbefc0dca520271cc9824f

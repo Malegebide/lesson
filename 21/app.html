@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../libs/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../libs/qunit/qunit-1.18.0.css"></head>
+	<script src="../libs/jquery.min.js"></script>
+	<script src="../libs/jquery.storageapi.min.js"></script>
+	<script src="../libs/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../libs/plugin/jquery.validate.min.js"></script>
+    <script src="../libs/plugin/jquery.form.min.js"></script>
+    <script src="../libs/plugin/jquery.metadata.js"></script>
+    <script src="../libs/plugin/localization/messages_zh.min.js"></script>
+    <script src="app.js"></script>
+    <title>calculator</title>
+</head>
+<body>
+<div data-role="page" class="ui-page-theme-a" id="pgAppHome" data-title="应用">
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>我的应用</h1>
+	</div>
+	
+  <div data-role="footer" data-position="fixed" data-theme="a">
+	<form>  
+
+<br>  
+<br>  
+<center><table border="3">  
+<tr>  
+<td><font color="yellow">电脑获胜次数</font></td><td><font color="yellow">电脑筹码</font></td>  
+</tr>  
+<tr>  
+<td><input type="TEXT" name="c" value=0></td><td><input type="TEXT" name="cm" value=100></td>  
+</tr>  
+<tr>  
+<td><font color="yellow">玩家获胜次数</font></td><td><font color="yellow">玩家筹码</font></td>  
+</tr>  
+<tr>  
+<td><input type="TEXT" name="u" value=0></td><td><input type="TEXT" name="um" value=100></td>  
+</tr>  
+</table>  
+<center><br><table border="3">  
+<tr>  
+<td><font color="yellow">电脑当前点数</font></td>  
+<td>  
+<input type="TEXT" name="dealer" value=0>  
+</td>  
+</tr>  
+<tr>  
+<td><font color="yellow">玩家当前点数</font></td>  
+<td>  
+<input type="TEXT" name="you" value=0>  
+</td>  
+</tr>  
+
+</table>  
+</center>  
+<div align="center">  
+<center>  
+<br>  
+<input type="BUTTON" value="要牌"  
+onClick="User(this.form)" name="BUTTON">  
+<input type="BUTTON" value="开牌"  
+onClick="Dealer(this.form);LookAtHands(this.form);" name="BUTTON">  
+<input type="BUTTON"  
+value="开始游戏" onClick="NewHand(this.form)" name="BUTTON">  
+<input type="BUTTON"  
+value="重新开始" onClick="ReStart(this.form);NewHand(this.form);" name="BUTTON">  
+
+</center>  
+</div>  
+</form>  
+	
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pgAppHome" data-prefetch="true" data-transition="flip">应用</a></li>
+        <li><a href="#pgUserHome" data-prefetch="true" data-transition="flip">用户管理</a></li>
+        <li><a href="#pgTestHome" data-prefetch="true" data-transition="flip">测试</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" class="ui-page-theme-a" id="pgUserHome" data-title="用户管理">
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>用户管理</h1>
+	</div>
+	<div data-role="main" class="ui-content">
+	</div>
+  <div data-role="footer" data-position="fixed" data-theme="a">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pgAppHome" data-prefetch="true" data-transition="flip">应用</a></li>
+        <li><a href="#pgUserHome" data-prefetch="true" data-transition="flip">用户管理</a></li>
+        <li><a href="#pgTestHome" data-prefetch="true" data-transition="flip">测试</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" class="ui-page-theme-a" id="pgTestHome" data-title="测试">
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>测试</h1>
+	</div>
+	<div data-role="main" class="ui-content">
+	  <div id="qunit"></div>
+	  <div id="qunit-fixture"></div>
+	</div>
+  <div data-role="footer" data-position="fixed" data-theme="a">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pgAppHome" data-prefetch="true" data-transition="flip">应用</a></li>
+        <li><a href="#pgUserHome" data-prefetch="true" data-transition="flip">用户管理</a></li>
+        <li><a href="#pgTestHome" data-prefetch="true" data-transition="flip">测试</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+  <script src="../libs/qunit/qunit-1.18.0.js"></script>
+  <script src="appTest.js"></script>
+</html>
